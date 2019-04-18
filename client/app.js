@@ -8,8 +8,9 @@ const App = () => {
     <div>
       {/* <Navbar /> */}
       {/* <Routes /> */}
-      <AllEmployees />
+      <h1>Employees</h1>
       <AddEmployee />
+      <AllEmployees />
     </div>
   )
 }

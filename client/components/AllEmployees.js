@@ -10,6 +10,7 @@ export default class AllEmployees extends Component {
       employees: []
     }
   }
+
   async componentDidMount() {
     const emp = await axios.get('/api/employees')
     const data = emp.data
@@ -23,7 +24,6 @@ export default class AllEmployees extends Component {
     const {employees} = this.state
     return (
       <div>
-        <h1>All Employees</h1>
         {employees.length ? (
           employees.map(e => {
             return <p key={e.id}>{e.name}</p>
