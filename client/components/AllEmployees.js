@@ -1,49 +1,61 @@
 import React, {Component} from 'react'
-import {getEmployees} from '../store'
-import {connect} from 'react-redux'
-// import axios from 'axios'
+// import {getEmployees} from '../store'
+// import {connect} from 'react-redux'
+import AddEmployee from './AddEmployee'
+import axios from 'axios'
 
-class AllEmployees extends Component {
-  // constructor(props) {
-  //   super(props)
-  // this.state = {
-  //   employees: []
-  // }
-  // }
+export default class AllEmployees extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      employees: []
+    }
+    this.addEmployee = this.addEmployee.bind(this)
+  }
+
+  addEmployee(employee) {
+    let stateCopy = this.state.employees.slice()
+
+    stateCopy.push(employee)
+
+    this.setState({
+      employees: stateCopy
+    })
+  }
 
   async componentDidMount() {
-    await this.props.getEmployees()
-    //   const emp = await axios.get('/api/employees')
-    //   const data = emp.data
-    //   console.log(data)
-    // this.setState({
-    //   employees
-    // })
+    // await this.props.getEmployees()
+    const res = await axios.get('/api/employees')
+    const employees = res.data
+
+    this.setState({
+      employees
+    })
   }
 
   render() {
-    const {employees} = this.props
-    console.log(this.props)
+    const {employees} = this.state
     return (
       <div>
-        {/* {employees.length ? (
+        <AddEmployee addEmployee={this.addEmployee} />
+        {employees.length ? (
           employees.map(e => {
             return <p key={e.id}>{e.name}</p>
           })
-        ) : ( */}
-        <p>loading employee data...</p>
-        {/* )} */}
+        ) : (
+          <p>loading employee data...</p>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  employees: state.employees
-})
+// const mapStateToProps = state => ({
+//   employees: state.employees
+// })
 
-const mapDispatchToProps = dispatch => ({
-  getEmployees: () => dispatch(getEmployees())
-})
+// const mapDispatchToProps = dispatch => ({
+//   getEmployees: () => dispatch(getEmployees())
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)
+// export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)

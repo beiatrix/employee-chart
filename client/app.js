@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {AllEmployees, AddEmployee} from './components'
+import {AllEmployees} from './components'
 import Routes from './routes'
 
 const App = () => {
@@ -9,7 +9,6 @@ const App = () => {
       {/* <Navbar /> */}
       {/* <Routes /> */}
       <h1>Employees</h1>
-      <AddEmployee />
       <AllEmployees />
     </div>
   )

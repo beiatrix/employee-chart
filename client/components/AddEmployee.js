@@ -12,6 +12,7 @@ export default class AddEmployee extends Component {
   }
 
   handleChange(event) {
+    // console.log(event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -19,16 +20,23 @@ export default class AddEmployee extends Component {
 
   async handleSubmit(event) {
     event.preventDefault()
+    const {addEmployee} = this.props
 
-    const newEmp = {...this.state}
-    console.log('new emp', newEmp)
+    const employee = {...this.state}
+    // console.log('new employee', employee)
 
-    const addEmp = await axios.post('/api/employees', newEmp)
+    try {
+      const res = await axios.post('/api/employees', employee)
+      // console.log('what data is this', res.data)
+      addEmployee(employee)
 
-    // clear input field
-    this.setState({
-      name: ''
-    })
+      // clear input field
+      this.setState({
+        name: ''
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   render() {
