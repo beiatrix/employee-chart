@@ -1,46 +1,53 @@
 import React, {Component} from 'react'
-// import {getEmployees} from '../store'
-// import {connect} from 'react-redux'
+import {getEmployees} from '../store'
+import {connect} from 'react-redux'
+
 import AddEmployee from './AddEmployee'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
-export default class AllEmployees extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      employees: []
-    }
-    this.addEmployee = this.addEmployee.bind(this)
-  }
+class AllEmployees extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     employees: []
+  //   }
+  //   this.addEmployee = this.addEmployee.bind(this)
+  // }
 
-  addEmployee(employee) {
-    let stateCopy = this.state.employees.slice()
+  // addEmployee(employee) {
+  //   let stateCopy = this.state.employees.slice()
 
-    stateCopy.push(employee)
+  //   stateCopy.push(employee)
 
-    this.setState({
-      employees: stateCopy
-    })
-  }
+  //   this.setState({
+  //     employees: stateCopy
+  //   })
+  // }
 
   async componentDidMount() {
-    // await this.props.getEmployees()
-    const res = await axios.get('/api/employees')
-    const employees = res.data
+    await this.props.getEmployees()
+    // const res = await axios.get('/api/employees')
+    // const employees = res.data
 
-    this.setState({
-      employees
-    })
+    // this.setState({
+    //   employees
+    // })
   }
 
   render() {
-    const {employees} = this.state
+    const {employee} = this.props
+    console.log('employee?', employee)
     return (
       <div>
-        <AddEmployee addEmployee={this.addEmployee} />
-        {employees.length ? (
-          employees.map(e => {
-            return <p key={e.id}>{e.name}</p>
+        {/* <AddEmployee addEmployee={this.addEmployee} /> */}
+        {employee && employee.length ? (
+          employee.map(e => {
+            return (
+              <Link to="/employees/1" key={e.id}>
+                {e.name}
+              </Link>
+            )
           })
         ) : (
           <p>loading employee data...</p>
@@ -50,12 +57,12 @@ export default class AllEmployees extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   employees: state.employees
-// })
+const mapStateToProps = state => ({
+  employee: state.employee
+})
 
-// const mapDispatchToProps = dispatch => ({
-//   getEmployees: () => dispatch(getEmployees())
-// })
+const mapDispatchToProps = dispatch => ({
+  getEmployees: () => dispatch(getEmployees())
+})
 
-// export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)
+export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)
