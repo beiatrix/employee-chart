@@ -1,13 +1,15 @@
 import React from 'react'
 
-import {Navbar} from './components'
+import {AllEmployees, AddEmployee} from './components'
 import Routes from './routes'
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      {/* <Navbar /> */}
+      {/* <Routes /> */}
+      <AllEmployees />
+      <AddEmployee />
     </div>
   )
 }
