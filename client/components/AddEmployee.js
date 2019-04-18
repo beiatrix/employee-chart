@@ -2,6 +2,16 @@ import React, {Component} from 'react'
 
 export default class AddEmployee extends Component {
   render() {
-    return <div>hi</div>
+    return (
+      <form>
+        <input
+          value={this.state.name}
+          name="name"
+          type="text"
+          onChange={this.handleChange}
+        />
+        <button type="submit">Add Employee</button>
+      </form>
+    )
   }
 }

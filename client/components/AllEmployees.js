@@ -23,12 +23,13 @@ export default class AllEmployees extends Component {
     const {employees} = this.state
     return (
       <div>
+        <h1>All Employees</h1>
         {employees.length ? (
           employees.map(e => {
             return <p key={e.id}>{e.name}</p>
           })
         ) : (
-          <p>hi</p>
+          <p>loading employee data...</p>
         )}
       </div>
     )
