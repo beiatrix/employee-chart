@@ -31,7 +31,7 @@ const gotNewEmployee = employee => ({
 export const getEmployees = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/employees')
-    dispatch(gotEmployees(data))
+    dispatch(gotEmployees(data || empState))
   } catch (err) {
     console.error(err)
   }

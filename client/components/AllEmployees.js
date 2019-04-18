@@ -1,47 +1,49 @@
 import React, {Component} from 'react'
-// import {getEmployees} from '../store'
-// import {connect} from 'react-redux'
-import axios from 'axios'
+import {getEmployees} from '../store'
+import {connect} from 'react-redux'
+// import axios from 'axios'
 
-export default class AllEmployees extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      employees: []
-    }
-  }
+class AllEmployees extends Component {
+  // constructor(props) {
+  //   super(props)
+  // this.state = {
+  //   employees: []
+  // }
+  // }
 
   async componentDidMount() {
-    const emp = await axios.get('/api/employees')
-    const data = emp.data
-    console.log(data)
-    this.setState({
-      employees: data
-    })
+    await this.props.getEmployees()
+    //   const emp = await axios.get('/api/employees')
+    //   const data = emp.data
+    //   console.log(data)
+    // this.setState({
+    //   employees
+    // })
   }
 
   render() {
-    const {employees} = this.state
+    const {employees} = this.props
+    console.log(this.props)
     return (
       <div>
-        {employees.length ? (
+        {/* {employees.length ? (
           employees.map(e => {
             return <p key={e.id}>{e.name}</p>
           })
-        ) : (
-          <p>loading employee data...</p>
-        )}
+        ) : ( */}
+        <p>loading employee data...</p>
+        {/* )} */}
       </div>
     )
   }
 }
 
-// const mapStateToProps = state => ({
-//   employees: state.employees
-// })
+const mapStateToProps = state => ({
+  employees: state.employees
+})
 
-// const mapDispatchToProps = dispatch => ({
-//   getEmployees: () => dispatch(getEmployees())
-// })
+const mapDispatchToProps = dispatch => ({
+  getEmployees: () => dispatch(getEmployees())
+})
 
-// export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)
+export default connect(mapStateToProps, mapDispatchToProps)(AllEmployees)
