@@ -1,7 +1,30 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Employee} = require('../server/db/models')
+
+const employees = [
+  {name: 'Elenora Krok'},
+  {name: 'Jeneva Lothrop'},
+  {name: 'Hilary Covert'},
+  {name: 'Romaine Buttrey'},
+  {name: 'Heriberto Campoverde'},
+  {name: 'Lorena Copas'},
+  {name: 'Honey Packer'},
+  {name: 'Luana Wissing'},
+  {name: 'Margery Biles'},
+  {name: 'Johnathan Buller'},
+  {name: 'Jan Shoaff'},
+  {name: 'Landon Hillin'},
+  {name: 'Mignon Ellen'},
+  {name: 'Tam Campo'},
+  {name: 'Melissia Haile'},
+  {name: 'Ebonie Stamant'},
+  {name: 'Mary Aguiniga'},
+  {name: 'Alysia Isabel'},
+  {name: 'Basil Delong'},
+  {name: 'Kellye Marques'}
+]
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +35,10 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  await Promise.all(employees.map(emp => Employee.create(emp)))
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${employees.length} employees`)
   console.log(`seeded successfully`)
 }
 
